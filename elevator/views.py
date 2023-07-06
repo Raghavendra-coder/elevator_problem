@@ -76,8 +76,45 @@ class ElevatorRequestAPI(APIView):
         try:
             data = request.data
             create_elevator_request = services.create_elevator_request_service(data)
-            response = create_response(200, ResponseCodes.SUCCESS, True, create_elevator_request, None, None)
+            response = create_response(201, ResponseCodes.SUCCESS, True, create_elevator_request, None, None)
 
+        except Exception as e:
+            response = create_response(500, ResponseCodes.ERROR, False, None, ResponseCodes.SOMETHING_WENT_WRONG.name, str(e))
+        return response
+
+
+class AddElevatorDestinationAPI(APIView):
+
+    def post(self, request):
+        try:
+            data = request.data
+            add_destination = services.add_destination_floor_service(data)
+            response = create_response(200, ResponseCodes.SUCCESS, True, add_destination, None, None)
+        except Exception as e:
+            response = create_response(500, ResponseCodes.ERROR, True, None, ResponseCodes.SOMETHING_WENT_WRONG.name, str(e))
+        return response
+
+
+class UpdateElevatorFloorAPI(APIView):
+
+    def post(self, request):
+        try:
+            data = request.data
+            update_elevator_floor = services.update_elevator_floor_service(data)
+            response = create_response(200, ResponseCodes.SUCCESS, True, update_elevator_floor, None, None)
+
+        except Exception as e:
+            response = create_response(500, ResponseCodes.ERROR, False, None, ResponseCodes.SOMETHING_WENT_WRONG.name, str(e))
+        return response
+
+
+class RunElevatorAPI(APIView):
+
+    def post(self, request):
+        try:
+            data = request.data
+            run_elevator = services.run_elevator_service(data)
+            response = create_response(200, ResponseCodes.SUCCESS, True, run_elevator, None, None)
         except Exception as e:
             response = create_response(500, ResponseCodes.ERROR, False, None, ResponseCodes.SOMETHING_WENT_WRONG.name, str(e))
         return response

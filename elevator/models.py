@@ -32,7 +32,7 @@ class Elevator(models.Model):
     id = models.UUIDField(max_length=36, primary_key=True, default=uuid.uuid4)
     elevator_name = models.CharField(max_length=20, null=True, blank=True)
     elevator_number = models.IntegerField(null=False, blank=True)
-    last_floor = models.IntegerField(null=True, blank=True)
+    reached_floor = models.IntegerField(null=True, blank=True)
     moving_status = models.CharField(max_length=1, default="S", choices=MOVING_STATUS, null=True, blank=True)
     door_status = models.CharField(max_length=1, default="C", choices=DOOR_STATUS, null=True, blank=True)
     status_light = models.CharField(max_length=1, default="G", choices=STATUS_LIGHT, null=True, blank=True)
@@ -47,8 +47,9 @@ class Elevator(models.Model):
 
 class ElevatorRequest(models.Model):
     id = models.UUIDField(max_length=36, primary_key=True, default=uuid.uuid4)
-    floor = models.OneToOneField(Floor, on_delete=models.CASCADE, null=True, blank=False, related_name="requests")
+    requested_floor = models.ForeignKey(Floor, on_delete=models.CASCADE, null=True, blank=False, related_name="requests")
+    destination_floor = models.ForeignKey(Floor, on_delete=models.CASCADE, null=True, blank=False, related_name="destination")
     elevator = models.ForeignKey(Elevator, on_delete=models.CASCADE, null=True, blank=False, related_name="requests")
 
     def __str__(self):
-        return f"request --> floor number : {self.floor.floor_number} elevator : {self.elevator.elevator_number}"
+        return f"elevator : {self.elevator.elevator_number} : request-floor number : {self.requested_floor.floor_number} : destination-floor number : {self.destination_floor.floor_number}"
