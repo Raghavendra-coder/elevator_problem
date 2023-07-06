@@ -30,11 +30,12 @@ STATUS_LIGHT = (
 
 class Elevator(models.Model):
     id = models.UUIDField(max_length=36, primary_key=True, default=uuid.uuid4)
+    elevator_name = models.CharField(max_length=20, null=True, blank=True)
     elevator_number = models.IntegerField(null=False, blank=True)
     last_floor = models.IntegerField(null=True, blank=True)
-    moving_status = models.CharField(max_length=1, choices=MOVING_STATUS, null=True, blank=True)
-    door_status = models.CharField(max_length=1, choices=DOOR_STATUS, null=True, blank=True)
-    status_light = models.CharField(max_length=1, choices=STATUS_LIGHT, null=True, blank=True)
+    moving_status = models.CharField(max_length=1, default="S", choices=MOVING_STATUS, null=True, blank=True)
+    door_status = models.CharField(max_length=1, default="C", choices=DOOR_STATUS, null=True, blank=True)
+    status_light = models.CharField(max_length=1, default="G", choices=STATUS_LIGHT, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if self.id is None:
