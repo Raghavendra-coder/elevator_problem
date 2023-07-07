@@ -5,6 +5,7 @@ from rest_framework.status import *
 from . import services
 from global_utils import create_response
 from response_codes import ResponseCodes
+from elevator_problem.exceptions import BusinessException
 
 # Create your views here.
 
@@ -77,7 +78,8 @@ class ElevatorRequestAPI(APIView):
             data = request.data
             create_elevator_request = services.create_elevator_request_service(data)
             response = create_response(create_elevator_request['code'], ResponseCodes.SUCCESS, True, create_elevator_request['data'], None, None)
-
+        except BusinessException as ex:
+            response = create_response(400, ResponseCodes.ERROR, False, None, str(ex), str(ex))
         except Exception as e:
             response = create_response(500, ResponseCodes.ERROR, False, None, ResponseCodes.SOMETHING_WENT_WRONG.name, str(e))
         return response
@@ -111,6 +113,8 @@ class AddElevatorDestinationAPI(APIView):
             data = request.data
             add_destination = services.add_destination_floor_service(data)
             response = create_response(add_destination['code'], ResponseCodes.SUCCESS, True, add_destination['data'], None, None)
+        except BusinessException as ex:
+            response = create_response(400, ResponseCodes.ERROR, True, None, str(ex), str(ex))
         except Exception as e:
             response = create_response(500, ResponseCodes.ERROR, True, None, ResponseCodes.SOMETHING_WENT_WRONG.name, str(e))
         return response
@@ -138,4 +142,38 @@ class RunElevatorAPI(APIView):
             response = create_response(200, ResponseCodes.SUCCESS, True, run_elevator, None, None)
         except Exception as e:
             response = create_response(500, ResponseCodes.ERROR, False, None, ResponseCodes.SOMETHING_WENT_WRONG.name, str(e))
+        return response
+
+
+class ElevatorNextDestinationAPI(APIView):
+
+    def get(self, request, pk):
+        try:
+            next_destination = services.elevator_next_destination_service(pk)
+            response = create_response(200, ResponseCodes.SUCCESS, True, next_destination, None, None)
+        except Exception as e:
+            response = create_response(500, ResponseCodes.ERROR, False, None, ResponseCodes.SOMETHING_WENT_WRONG.name, str(e))
+        return response
+
+
+class ElevatorHealthAPI(APIView):
+
+    def get(self, request, pk):
+        try:
+            health = services.get_elevator_health_service(pk)
+            response = create_response(200, ResponseCodes.SUCCESS, True, health, None, None)
+        except Exception as e:
+            response = create_response(500, ResponseCodes.ERROR, False, None, ResponseCodes.SOMETHING_WENT_WRONG.name,
+                                       str(e))
+        return response
+
+    def post(self, request, pk):
+
+        try:
+            data = request.data
+            health = services.change_elevator_health_service(pk, data)
+            response = create_response(200, ResponseCodes.SUCCESS, True, health, None, None)
+        except Exception as e:
+            response = create_response(500, ResponseCodes.ERROR, False, None, ResponseCodes.SOMETHING_WENT_WRONG.name,
+                                       str(e))
         return response

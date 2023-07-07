@@ -7,3 +7,4 @@ class ResponseCodes(str, Enum):
     UNAUTHORIZED = "user is not authorized for this operation"
     SOMETHING_WENT_WRONG = 'something went wrong while performing this operation'
     NO_ELEVATOR_ID_PROVIDED = 'elevator id not provided'
+    ELEVATOR_NOT_WORKING = "elevator is either under maintainance or not working"

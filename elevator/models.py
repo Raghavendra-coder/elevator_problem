@@ -35,6 +35,12 @@ STATUS_LIGHT = (
     ('G', 'Green'),
 )
 
+ELEVATOR_HEALTH = (
+    ('W', 'WORKING'),
+    ('NW', 'NOT-WORKING'),
+    ('UM', 'UNDER-MAINTAINACE'),
+)
+
 
 class Elevator(models.Model):
     id = models.UUIDField(max_length=36, primary_key=True, default=uuid.uuid4)
@@ -45,6 +51,7 @@ class Elevator(models.Model):
     door_status = models.CharField(max_length=1, default="C", choices=DOOR_STATUS, null=True, blank=True)
     status_light = models.CharField(max_length=1, default="G", choices=STATUS_LIGHT, null=True, blank=True)
     availability = models.CharField(max_length=1, default="A", choices=AVAILABILITY, null=True, blank=True)
+    elevator_health = models.CharField(max_length=2, choices=ELEVATOR_HEALTH, default="W", null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_by = models.DateTimeField(auto_now=True)

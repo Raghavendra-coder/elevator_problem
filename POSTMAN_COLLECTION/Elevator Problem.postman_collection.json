@@ -239,6 +239,44 @@
 			"response": []
 		},
 		{
+			"name": "Elevator's Next Destination",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"current_floor\": 0,\r\n    \"elevator_id\" : \"249342bb-2454-4309-b413-fa97677300a9\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/v1/elevator/elevator_next_destination/249342bb-2454-4309-b413-fa97677300a9/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"elevator",
+						"elevator_next_destination",
+						"249342bb-2454-4309-b413-fa97677300a9",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Update Elevator Floor",
 			"request": {
 				"method": "POST",
@@ -386,7 +424,7 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/elevator/elevator_request/",
+					"raw": "127.0.0.1:8000/api/v1/elevator/elevator_request/?elevator_id=249342bb-2454-4309-b413-fa97677300a9",
 					"host": [
 						"127",
 						"0",
@@ -399,6 +437,97 @@
 						"v1",
 						"elevator",
 						"elevator_request",
+						""
+					],
+					"query": [
+						{
+							"key": "elevator_id",
+							"value": "210b3a01-2844-47a7-a81b-fce4a85145a1",
+							"disabled": true
+						},
+						{
+							"key": "elevator_id",
+							"value": "249342bb-2454-4309-b413-fa97677300a9"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Elevator Health",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/v1/elevator/elevator_health/249342bb-2454-4309-b413-fa97677300a9/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"elevator",
+						"elevator_health",
+						"249342bb-2454-4309-b413-fa97677300a9",
+						""
+					],
+					"query": [
+						{
+							"key": "elevator_id",
+							"value": "210b3a01-2844-47a7-a81b-fce4a85145a1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Elevator Health",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"health\": \"NW\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/v1/elevator/elevator_health/249342bb-2454-4309-b413-fa97677300a9/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"elevator",
+						"elevator_health",
+						"249342bb-2454-4309-b413-fa97677300a9",
 						""
 					],
 					"query": [

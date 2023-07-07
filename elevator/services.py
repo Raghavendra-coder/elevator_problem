@@ -74,7 +74,7 @@ def get_elevator_request_services(floor_number, elevator_id):
     """
     if elevator_id:
         elevator_requests = utils.get_elevator_request_by_elevator_id(elevator_id)
-        request_serializer = ElevatorRequestSerializer(elevator_requests)
+        request_serializer = ElevatorRequestSerializer(elevator_requests, many=True)
     else:
         elevator_requests = ElevatorRequest.objects.all()
         if floor_number:
@@ -92,6 +92,9 @@ def create_elevator_request_service(data):
     "elevator_id" : 2
     }
     """
+    elevator = utils.get_elevator_object(data['elevator_id'])
+    if elevator.elevator_health != "W":
+        raise BusinessException(ResponseCodes.ELEVATOR_NOT_WORKING.name)
     create_elevator_request, created = utils.create_elevator_request(data)
     if created:
         code = 201 #new request added
@@ -150,9 +153,10 @@ def add_destination_floor_service(data):
     "destination_floor": 3
     }
     """
-    current_floor_number = data.get('floor_number')
     destination_floor = utils.get_floor_object(data['destination_floor'])
     elevator = utils.get_elevator_object(data['elevator_id'])
+    if elevator.elevator_health != "W":
+        raise BusinessException(ResponseCodes.ELEVATOR_NOT_WORKING.name)
     create_destination, created = utils.create_destination_request(destination_floor, elevator)
     if created:
         code = 201
@@ -238,4 +242,82 @@ def run_elevator_service(data):
     elevator.save()
     elevator_serializer = ElevatorSerializer(elevator)
     return elevator_serializer.data
+
+
+def elevator_next_destination_service(elevator_id):
+    """
+    this service is to find the next destination of the provided elevator id
+    """
+
+    elevator = utils.get_elevator_object(elevator_id)
+    moving_status = elevator.moving_status
+    last_floor = elevator.reached_floor
+    elevator_requests = utils.get_elevator_request_by_elevator_id(elevator_id)
+    destination_requests = utils.get_destination_request_by_elevator_id(elevator_id)
+    if elevator_requests:
+        all_requested_floors = [elevator.requested_floor.floor_number for elevator in elevator_requests]
+    else:
+        all_requested_floors = []
+    if destination_requests:
+        all_destination_floors = [destination.destination_floor.floor_number for destination in destination_requests]
+    else:
+        all_destination_floors = []
+    next_destination = None
+    if moving_status == "U":
+        next_request_floor = utils.next_upper_floor(last_floor, all_requested_floors)
+        next_destination_floor = utils.next_upper_floor(last_floor, all_destination_floors)
+
+        if not next_request_floor:
+            next_destination = next_destination_floor
+        elif not next_destination_floor:
+            next_destination = next_request_floor
+        elif next_request_floor and next_destination_floor:
+            if next_request_floor < next_destination_floor :
+                next_destination = next_request_floor
+            else:
+                next_destination = next_destination_floor
+        else:
+            next_destination = None
+    else:
+        next_request_floor = utils.next_lower_floor(last_floor, all_requested_floors)
+        next_destination_floor = utils.next_lower_floor(last_floor, all_destination_floors)
+        if not next_request_floor:
+            next_destination = next_destination_floor
+        elif not next_destination_floor:
+            next_destination = next_request_floor
+        elif next_request_floor and next_destination_floor:
+            if next_request_floor > next_destination_floor:
+                next_destination = next_request_floor
+            else:
+                next_destination = next_destination_floor
+        else:
+            next_destination = None
+    return next_destination
+
+
+def get_elevator_health_service(elevator_id):
+    """
+    this service is to get the elevator health
+    W = Working
+    UM = Under Maintainance
+    NW = Not Working
+    """
+    elevator = utils.get_elevator_object(elevator_id)
+    health = elevator.elevator_health
+    return health
+
+
+def change_elevator_health_service(elevator_id, data):
+    """
+    this service is to change the elevator health
+    W = Working
+    UM = Under Maintainance
+    NW = Not Working
+    data = {
+    "health": "W/UM/NW"
+    """
+    elevator = utils.get_elevator_object(elevator_id)
+    elevator.elevator_health = data["health"]
+    elevator.save()
+    return f"elevator's health changed to {elevator.elevator_health}"
 

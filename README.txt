@@ -73,6 +73,12 @@ STATUS_LIGHT = (
     - 9.2 API will be hit again to check pending request/destination if not found then door will be closed moving status will be still
         and availability status will become True
 
+ 11. You can also get/update the health of the elevator
+    - when the health of the elevator is not "w" ie working then no one can request or can add destination
+
+ 12. To get the next destination of the elevator we can simply hit an API to get the next destinated floor number
+        elevator_next_destination/<pk>/ pk : id of the elevator
+
     THIS IS JUST SIMPLE EXAMPLE , elevator will work in as much as requests and upto as much as floors
     for explaining I made small example
 
