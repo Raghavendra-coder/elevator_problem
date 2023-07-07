@@ -7,3 +7,4 @@ from .models import *
 admin.site.register(Floor)
 admin.site.register(Elevator)
 admin.site.register(ElevatorRequest)
+admin.site.register(DestinationFloorRequest)

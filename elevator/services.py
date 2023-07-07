@@ -1,7 +1,9 @@
 from .models import Floor, ElevatorRequest
 from . import utils
-from .serializers import FloorSerializer, ElevatorSerializer, ElevatorRequestSerializer
+from .serializers import *
 from django.shortcuts import get_object_or_404
+from elevator_problem.exceptions import BusinessException
+from response_codes import ResponseCodes
 
 
 def create_floor_service(data):
@@ -10,7 +12,10 @@ def create_floor_service(data):
     """
 
     total_floors = data['total_floors']
-    latest_floor = Floor.objects.Latest()
+    try:
+        latest_floor = Floor.objects.latest('created_at')
+    except:
+        latest_floor = None
     created_floors = []
     if not latest_floor:
         start = 0
@@ -52,7 +57,8 @@ def create_elevator_service(data):
     """
     this service is to create elevator
     data = {
-    "elevator_name": "X-2"
+    "elevator_name": "X-2",
+    "elevator_number": "1"
        }
     """
     create_elevator = utils.create_elevator_object(data)
@@ -83,31 +89,83 @@ def create_elevator_request_service(data):
     this service is to create an elevator request on a perticular floor and on a specific elevator
     data = {
     "floor_number" : 2,
-    "elevator_number" : 2
+    "elevator_id" : 2
     }
     """
-    create_elevator_request = utils.create_elevator_request(data)
-    request_serializer = ElevatorRequestSerializer(create_elevator_request).data
-    return request_serializer.data
+    create_elevator_request, created = utils.create_elevator_request(data)
+    if created:
+        code = 201 #new request added
+    else:
+        code = 200
+    request_serializer = ElevatorRequestSerializer(create_elevator_request)
+    data = {
+        "code": code,
+        "data": request_serializer.data
+    }
+
+    return data
+
+
+def open_or_close_door_service(data):
+    """
+    this service is to open the elevator door if its closed and vice versa if the elevator's
+     moving status of the elevator is also 'still'
+    data = {
+    "floor_number": 2,
+    "elevator_id" : "<id>"
+    }
+    """
+    elevator = utils.get_elevator_object(data['elevator_id'])
+    if elevator.moving_status == "S":
+        if elevator.door_status == "C":
+            elevator.door_status = "O"
+        else:
+            elevator.door_status = "C"
+        elevator.save()
+        return f"Door : {elevator.door_status}"
+    else:
+        return f"Door cannot be opened"
+
+
+def get_destination_floor_service(elevator_id):
+    """
+    this service is to get all destination floor of an elevator
+    """
+    if not elevator_id:
+        raise BusinessException(ResponseCodes.NO_ELEVATOR_ID_PROVIDED.name)
+    else:
+        elevator = utils.get_elevator_object(elevator_id)
+        destinations = DestinationFloorRequest.objects.filter(elevator_request__elevator=elevator)
+        destination_serializer = ElevatorDestinationSerializer(destinations, many=True)
+        return destination_serializer.data
+
 
 
 def add_destination_floor_service(data):
     """
     this service is to add the destination floor.
     data = {
-    "floor_number": 2,
+    "floor_number": 2, #Not necessary
     "elevator_id": "<id>"
-    "destination_floor: 3
+    "destination_floor": 3
     }
     """
-    current_floor = utils.get_floor_object(data['floor_number'])
+    current_floor_number = data.get('floor_number')
     destination_floor = utils.get_floor_object(data['destination_floor'])
     elevator = utils.get_elevator_object(data['elevator_id'])
-
-    elevator_request = utils.get_elevator_request_by_elevator_and_requested_floor(elevator, current_floor)
-    elevator_request.destination_floor = destination_floor
-    elevator_request.save()
-    return f"Floor : {data['destination_floor']} Destination added"
+    create_destination, created = utils.create_destination_request(destination_floor, elevator)
+    if created:
+        code = 201
+    else:
+        code = 200
+    elevator.door_status = "C"
+    elevator.save()
+    destination_request_serializer = ElevatorDestinationSerializer(create_destination)
+    data = {
+        "code": code,
+        "data": destination_request_serializer.data
+    }
+    return data
 
 
 def update_elevator_floor_service(data):
@@ -136,31 +194,47 @@ def run_elevator_service(data):
     elevator_id = data['elevator_id']
     elevator = utils.get_elevator_object(elevator_id)
     elevator_requests = utils.get_elevator_request_by_elevator_id(elevator_id)
-    if not elevator_requests:
+    destination_requests = utils.get_destination_request_by_elevator_id(elevator_id)
+    elevator.door_status = "C"
+    if not elevator_requests and not destination_requests:
         elevator.moving_status = "S"
         elevator.status_light = "G"
+        elevator.availability = "A"
         elevator.save()
     else:
-        all_requested_floors = []
-        all_destination_floors = []
-        for request in elevator_requests:
-            all_requested_floors.append(request.requested_floor.floor_number)
-            all_destination_floors.append(request.destination_floor.floor_number)
-        if current_floor > elevator.reached_floor:
-            next_request_floor = utils.next_upper_floor(current_floor, all_requested_floors)
-            next_destination_floor = utils.next_upper_floor(current_floor, all_destination_floors)
-            if next_request_floor or next_destination_floor:
-                elevator.moving_status = "U"
-            else:
-                elevator.moving_status = "D"
+        if elevator_requests:
+            all_requested_floors = [elevator.requested_floor.floor_number for elevator in elevator_requests]
         else:
-            next_request_floor = utils.next_lower_floor(current_floor, all_requested_floors)
-            next_destination_floor = utils.next_lower_floor(current_floor, all_destination_floors)
-            if next_request_floor or next_destination_floor:
+            all_requested_floors = []
+        if destination_requests:
+            all_destination_floors = [destination.destination_floor.floor_number for destination in destination_requests]
+        else:
+            all_destination_floors = []
+        if elevator.availability == "A" and elevator_requests:
+            if current_floor > all_requested_floors[0]:
                 elevator.moving_status = "D"
             else:
                 elevator.moving_status = "U"
+        else:
+            if current_floor > elevator.reached_floor:
+                next_request_floor = utils.next_upper_floor(current_floor, all_requested_floors)
+                next_destination_floor = utils.next_upper_floor(current_floor, all_destination_floors)
+                if next_request_floor or next_destination_floor:
+                    elevator.moving_status = "U"
+                else:
+                    elevator.moving_status = "D"
+            else:
+                next_request_floor = utils.next_lower_floor(current_floor, all_requested_floors)
+                next_destination_floor = utils.next_lower_floor(current_floor, all_destination_floors)
+                if next_request_floor != None or next_destination_floor != None:
+                    elevator.moving_status = "D"
+                else:
+                    elevator.moving_status = "U"
+
+
+        elevator.availability = "B"
         elevator.status_light = "R"
+    elevator.reached_floor = current_floor
     elevator.save()
     elevator_serializer = ElevatorSerializer(elevator)
     return elevator_serializer.data
