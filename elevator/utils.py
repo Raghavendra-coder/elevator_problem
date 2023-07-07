@@ -129,3 +129,9 @@ def next_lower_floor(current_floor, floor_list):
         return next_floor
     else:
         return None
+
+
+def create_sample_floors_and_elevator(floor_count):
+    create_floor(floor_count)
+    elevator = Elevator.objects.create(elevator_name="sample", elevator_number=1,
+                                       reached_floor=0)
