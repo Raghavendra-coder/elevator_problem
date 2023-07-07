@@ -1,0 +1,416 @@
+{
+	"info": {
+		"_postman_id": "5101d269-fe95-45fb-bddb-468ac3e2444b",
+		"name": "Elevator Problem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16817462"
+	},
+	"item": [
+		{
+			"name": "Create Floor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"total_floors\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/v1/elevator/floor/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"elevator",
+						"floor",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Floor",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/elevator/floor/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"elevator",
+						"floor",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Elevator",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"elevator_name\": \"X-1\",\r\n    \"elevator_number\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/v1/elevator/elevator/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"elevator",
+						"elevator",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Elevator",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/v1/elevator/elevator/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"elevator",
+						"elevator",
+						""
+					],
+					"query": [
+						{
+							"key": "elevator_id",
+							"value": "d906f761-0aa3-4328-9359-a5eadc28ff6a",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Elevator Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"floor_number\" : 2,\r\n    \"elevator_id\" : \"249342bb-2454-4309-b413-fa97677300a9\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/v1/elevator/elevator_request/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"elevator",
+						"elevator_request",
+						""
+					],
+					"query": [
+						{
+							"key": "elevator_id",
+							"value": "210b3a01-2844-47a7-a81b-fce4a85145a1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Move Elevator",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"current_floor\": 0,\r\n    \"elevator_id\" : \"249342bb-2454-4309-b413-fa97677300a9\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/v1/elevator/run_elevator/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"elevator",
+						"run_elevator",
+						""
+					],
+					"query": [
+						{
+							"key": "elevator_id",
+							"value": "210b3a01-2844-47a7-a81b-fce4a85145a1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Elevator Floor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"floor_number\": 0,\r\n    \"elevator_id\" : \"249342bb-2454-4309-b413-fa97677300a9\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/v1/elevator/update_elevator_floor/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"elevator",
+						"update_elevator_floor",
+						""
+					],
+					"query": [
+						{
+							"key": "elevator_id",
+							"value": "210b3a01-2844-47a7-a81b-fce4a85145a1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Destination",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"destination_floor\": 0,\r\n    \"elevator_id\" : \"249342bb-2454-4309-b413-fa97677300a9\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/v1/elevator/destination_floor/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"elevator",
+						"destination_floor",
+						""
+					],
+					"query": [
+						{
+							"key": "elevator_id",
+							"value": "210b3a01-2844-47a7-a81b-fce4a85145a1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Destination from elevator id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"current_floor\": 0,\r\n    \"elevator_id\" : \"ecfd6160-df40-46ee-9794-f4e6e965c048\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/v1/elevator/destination_floor/?elevator_id=d906f761-0aa3-4328-9359-a5eadc28ff6a",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"elevator",
+						"destination_floor",
+						""
+					],
+					"query": [
+						{
+							"key": "elevator_id",
+							"value": "210b3a01-2844-47a7-a81b-fce4a85145a1",
+							"disabled": true
+						},
+						{
+							"key": "elevator_id",
+							"value": "d906f761-0aa3-4328-9359-a5eadc28ff6a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Elevator Requests",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/v1/elevator/elevator_request/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"elevator",
+						"elevator_request",
+						""
+					],
+					"query": [
+						{
+							"key": "elevator_id",
+							"value": "210b3a01-2844-47a7-a81b-fce4a85145a1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
