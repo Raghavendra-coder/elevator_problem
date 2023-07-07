@@ -5,9 +5,14 @@ POSTMAN Collection is added at path "POSTMAN_COLLECTION/Elevator Problem.postman
 
 NOTE : JUST IMPORT POSTMAN AND TEST THE APIS [DEPLOYED BASE URL HAS BEEN ADDED]
 
-
+django-Admin : https://ElevatorProblem.pythonanywhere.com/admin/
  username : admin
  password : 12345
+
+ BaseURL of APIs : https://ElevatorProblem.pythonanywhere.com/api/v1/elevator/<endpoints>
+
+
+
 MOVING_STATUS = (
     ('U', 'Moving Up'),
     ('D', 'Moving Down'),
