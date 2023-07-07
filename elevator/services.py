@@ -318,6 +318,8 @@ def change_elevator_health_service(elevator_id, data):
     """
     elevator = utils.get_elevator_object(elevator_id)
     elevator.elevator_health = data["health"]
+    if data["health"] != "W":
+        elevator.moving_status = "S"
     elevator.save()
     return f"elevator's health changed to {elevator.elevator_health}"
 
