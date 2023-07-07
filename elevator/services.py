@@ -138,7 +138,7 @@ def get_destination_floor_service(elevator_id):
         raise BusinessException(ResponseCodes.NO_ELEVATOR_ID_PROVIDED.name)
     else:
         elevator = utils.get_elevator_object(elevator_id)
-        destinations = DestinationFloorRequest.objects.filter(elevator_request__elevator=elevator)
+        destinations = DestinationFloorRequest.objects.filter(elevator=elevator)
         destination_serializer = ElevatorDestinationSerializer(destinations, many=True)
         return destination_serializer.data
 

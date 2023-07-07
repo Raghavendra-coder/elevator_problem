@@ -1,7 +1,11 @@
 Working process of the elevator:
 
 POSTMAN Collection is added at path "POSTMAN_COLLECTION/Elevator Problem.postman_collection.json"
-Sample Database path: "elevator_problem/Sample_Database/elevator.sql" ##Postgres BAckup file
+
+
+NOTE : JUST IMPORT POSTMAN AND TEST THE APIS [DEPLOYED BASE URL HAS BEEN ADDED]
+
+
  username : admin
  password : 12345
 MOVING_STATUS = (
@@ -91,6 +95,8 @@ STATUS_LIGHT = (
     * run the server [ python manage.py runserver ]
 
     ALL above three commands will be in terminal and path which incules manage.py file
+
+ Project was created in postgres but hosted on mysql database (No affordable postgres database found for server)
 
 
 

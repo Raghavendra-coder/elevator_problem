@@ -21,14 +21,13 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/elevator/floor/",
+					"raw": "https://elevatorproblem.pythonanywhere.com/api/v1/elevator/floor/",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"elevatorproblem",
+						"pythonanywhere",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"v1",
@@ -58,15 +57,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/v1/elevator/floor/",
-					"protocol": "http",
+					"raw": "https://elevatorproblem.pythonanywhere.com/api/v1/elevator/floor/",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"elevatorproblem",
+						"pythonanywhere",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"v1",
@@ -93,14 +90,13 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/elevator/elevator/",
+					"raw": "https://elevatorproblem.pythonanywhere.com/api/v1/elevator/elevator/",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"elevatorproblem",
+						"pythonanywhere",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"v1",
@@ -130,14 +126,13 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/elevator/elevator/",
+					"raw": "https://elevatorproblem.pythonanywhere.com/api/v1/elevator/elevator/",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"elevatorproblem",
+						"pythonanywhere",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"v1",
@@ -163,7 +158,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"floor_number\" : 2,\r\n    \"elevator_id\" : \"249342bb-2454-4309-b413-fa97677300a9\"\r\n}",
+					"raw": "{\r\n    \"floor_number\" : 3,\r\n    \"elevator_id\" : \"c2245cc6-bcce-42b2-829c-97f0210e686b\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -171,14 +166,13 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/elevator/elevator_request/",
+					"raw": "https://elevatorproblem.pythonanywhere.com/api/v1/elevator/elevator_request/",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"elevatorproblem",
+						"pythonanywhere",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"v1",
@@ -204,7 +198,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"current_floor\": 0,\r\n    \"elevator_id\" : \"249342bb-2454-4309-b413-fa97677300a9\"\r\n}",
+					"raw": "{\r\n    \"current_floor\": 0,\r\n    \"elevator_id\" : \"c2245cc6-bcce-42b2-829c-97f0210e686b\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -212,14 +206,13 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/elevator/run_elevator/",
+					"raw": "https://elevatorproblem.pythonanywhere.com/api/v1/elevator/run_elevator/",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"elevatorproblem",
+						"pythonanywhere",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"v1",
@@ -256,20 +249,19 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/elevator/elevator_next_destination/249342bb-2454-4309-b413-fa97677300a9/",
+					"raw": "https://elevatorproblem.pythonanywhere.com/api/v1/elevator/elevator_next_destination/c2245cc6-bcce-42b2-829c-97f0210e686b/",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"elevatorproblem",
+						"pythonanywhere",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"v1",
 						"elevator",
 						"elevator_next_destination",
-						"249342bb-2454-4309-b413-fa97677300a9",
+						"c2245cc6-bcce-42b2-829c-97f0210e686b",
 						""
 					]
 				}
@@ -283,7 +275,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"floor_number\": 0,\r\n    \"elevator_id\" : \"249342bb-2454-4309-b413-fa97677300a9\"\r\n}",
+					"raw": "{\r\n    \"floor_number\": 0,\r\n    \"elevator_id\" : \"c2245cc6-bcce-42b2-829c-97f0210e686b\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -291,14 +283,13 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/elevator/update_elevator_floor/",
+					"raw": "https://elevatorproblem.pythonanywhere.com/api/v1/elevator/update_elevator_floor/",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"elevatorproblem",
+						"pythonanywhere",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"v1",
@@ -324,7 +315,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"destination_floor\": 0,\r\n    \"elevator_id\" : \"249342bb-2454-4309-b413-fa97677300a9\"\r\n}",
+					"raw": "{\r\n    \"destination_floor\": 0,\r\n    \"elevator_id\" : \"c2245cc6-bcce-42b2-829c-97f0210e686b\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -332,14 +323,13 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/elevator/destination_floor/",
+					"raw": "https://elevatorproblem.pythonanywhere.com/api/v1/elevator/destination_floor/",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"elevatorproblem",
+						"pythonanywhere",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"v1",
@@ -376,14 +366,13 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/elevator/destination_floor/?elevator_id=d906f761-0aa3-4328-9359-a5eadc28ff6a",
+					"raw": "https://elevatorproblem.pythonanywhere.com/api/v1/elevator/destination_floor/?elevator_id=c2245cc6-bcce-42b2-829c-97f0210e686b",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"elevatorproblem",
+						"pythonanywhere",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"v1",
@@ -399,7 +388,7 @@
 						},
 						{
 							"key": "elevator_id",
-							"value": "d906f761-0aa3-4328-9359-a5eadc28ff6a"
+							"value": "c2245cc6-bcce-42b2-829c-97f0210e686b"
 						}
 					]
 				}
@@ -424,14 +413,13 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/elevator/elevator_request/?elevator_id=249342bb-2454-4309-b413-fa97677300a9",
+					"raw": "https://elevatorproblem.pythonanywhere.com/api/v1/elevator/elevator_request/?elevator_id=c2245cc6-bcce-42b2-829c-97f0210e686b",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"elevatorproblem",
+						"pythonanywhere",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"v1",
@@ -447,7 +435,7 @@
 						},
 						{
 							"key": "elevator_id",
-							"value": "249342bb-2454-4309-b413-fa97677300a9"
+							"value": "c2245cc6-bcce-42b2-829c-97f0210e686b"
 						}
 					]
 				}
@@ -472,20 +460,19 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/elevator/elevator_health/249342bb-2454-4309-b413-fa97677300a9/",
+					"raw": "https://elevatorproblem.pythonanywhere.com/api/v1/elevator/elevator_health/c2245cc6-bcce-42b2-829c-97f0210e686b/",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"elevatorproblem",
+						"pythonanywhere",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"v1",
 						"elevator",
 						"elevator_health",
-						"249342bb-2454-4309-b413-fa97677300a9",
+						"c2245cc6-bcce-42b2-829c-97f0210e686b",
 						""
 					],
 					"query": [
@@ -514,20 +501,19 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/elevator/elevator_health/249342bb-2454-4309-b413-fa97677300a9/",
+					"raw": "https://elevatorproblem.pythonanywhere.com/api/v1/elevator/elevator_health/c2245cc6-bcce-42b2-829c-97f0210e686b/",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"elevatorproblem",
+						"pythonanywhere",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"api",
 						"v1",
 						"elevator",
 						"elevator_health",
-						"249342bb-2454-4309-b413-fa97677300a9",
+						"c2245cc6-bcce-42b2-829c-97f0210e686b",
 						""
 					],
 					"query": [
